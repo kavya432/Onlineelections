@@ -9,7 +9,7 @@
 </head>
 <body>
 <%ArrayList<String> allCandidates = (ArrayList<String>) request.getAttribute("candidates");
-String myString="";
+String myString="c1N";
 %>
 
 <form method = "post" action="VoteControllerServlet">
@@ -24,7 +24,9 @@ for(int i = 0; i < allCandidates.size(); i++){
 <tr>
      <td> <input type = "radio" name="id" value="<%= i %>"> </td>
      <td><%=allCandidates.get(i) %></td>
-     </tr>     
+     </tr> 
+     
+         
 <%
 }
 %>

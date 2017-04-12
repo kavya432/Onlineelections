@@ -14,156 +14,77 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.event.AncestorListener;
+
+
 
 
 
 public class AddElections extends JPanel {
-	JLabel selElc = new JLabel("Select Elections"); 
+	//JLabel title = new JLabel("Enter Election Name and candidates:");
+	JLabel selElc = new JLabel("Enter Election Name:"); 
+	JTextField newElecName = new JTextField(20);
 	ElectionsDAO dao = new ElectionsDAO();
-	JComboBox electionType;
-    //ArrayList<Elections> electionList = dao.getAllElections();
-    JTextArea cand1 = new JTextArea(5,15);
-    JTextArea cand2 = new JTextArea(5,15);
-    JTextArea cand3 = new JTextArea(5,15);
-	//JCheckBox cand1 = new JCheckBox();
-	//JCheckBox cand2 = new JCheckBox();
-	//JCheckBox cand3 = new JCheckBox();
-	JButton submit = new JButton(" Add Election and Candidates");
-	JButton back = new JButton("Back for result");
-	//private int candidate1Count;
-	//private int candidate2Count;
-	//private int candidate3Count;
+
+	JLabel candName1 = new JLabel("Candidate1:");
+	JTextField cand1 = new JTextField(10);
+    JLabel candName2 = new JLabel("Candidate2:");
+    JTextField cand2 = new JTextField(10);
+    JLabel candName3 = new JLabel("Candidate3:");
+    JTextField cand3 = new JTextField(10);
+    JButton submit = new JButton("Add");
+	JButton back = new JButton("Back for results");
+
 	Elections event;
 	
 	public AddElections(){
         
          
          setLayout(new BorderLayout());
+ 		 //System.out.println("Test");
+ 		 
+ 		ButtonListener b = new ButtonListener();
+ 		submit.addActionListener(b);
+ 		back.addActionListener(b);
  		
-         selElc.setFont(new Font("Serif", Font.PLAIN, 16));
- 		setMinimumSize(new Dimension(400,250));
-         
-         System.out.println("Test");
- 		HashSet<String> uniqueElectionNames = dao.getUniqueElectionName();
- 		
- 		String[] electionName = new String[uniqueElectionNames.size()];
- 		uniqueElectionNames.toArray(electionName);
- 		System.out.println(uniqueElectionNames);
- 		electionType = new JComboBox<String>(electionName);
- 		
- 		
- 		//setMinimumSize(new Dimension(400,250));
- 		
- 		StringBuilder sb = new StringBuilder();
- 		for(String a: dao. getCurrentElectionsFromTable(electionName[0])){
- 			sb.append(a + "\n");
- 		}
- 		cand1.setText(sb.toString());
-		//list.append("Text from store will go here");
-		cand1.setLineWrap(true);
-	    cand1.setEditable(true);
-	    cand1.setVisible(true);
- 		  setLayout(new BorderLayout());
- 			add(selElc, BorderLayout.NORTH);
- 			add(electionType, BorderLayout.WEST);
- 			add(cand1, BorderLayout.CENTER);
- 			add(back, BorderLayout.SOUTH);
- 			add(submit, BorderLayout.SOUTH);
- 			cand2.setText(sb.toString());
- 			//list.append("Text from store will go here");
- 			cand2.setLineWrap(true);
- 		    cand2.setEditable(true);
- 		    cand2.setVisible(true);
- 	 		  setLayout(new BorderLayout());
- 	 			add(selElc, BorderLayout.NORTH);
- 	 			add(electionType, BorderLayout.WEST);
- 	 			add(cand2, BorderLayout.CENTER);
- 	 			add(back, BorderLayout.SOUTH);	
- 	 			add(submit, BorderLayout.SOUTH);
- 	 		cand3.setText(sb.toString());
- 	 			//list.append("Text from store will go here");
- 	 			cand3.setLineWrap(true);
- 	 		    cand3.setEditable(true);
- 	 		    cand3.setVisible(true);
- 	 	 		  setLayout(new BorderLayout());
- 	 	 			add(selElc, BorderLayout.NORTH);
- 	 	 			add(electionType, BorderLayout.WEST);
- 	 	 			add(cand3, BorderLayout.CENTER);
- 	 	 			add(back, BorderLayout.SOUTH);
- 	 	 			add(submit, BorderLayout.SOUTH);
-		ButtonandComboBoxListener e = new ButtonandComboBoxListener();
-		submit.addActionListener(e);
-		back.addActionListener(e);
-		electionType.addActionListener(e);
-		//elecSel.addActionListener(e);
-		//elecSel.addItem("Presidential Elections");
-		//elecSel.addItem("Homecoming Queen");
-		//elecSel.addItem("Senate");
+		JPanel electionNameLabel = new JPanel(new GridLayout(5,0));
+		JPanel electionNameTextAreas = new JPanel(new GridLayout(5,0));
+	
 		
-		selElc.setFont(new Font("Serif", Font.PLAIN, 16));
-		add(selElc, BorderLayout.NORTH);
+		electionNameLabel.add(selElc);
 		
-		/*
-	    JPanel electionLabel = new JPanel(new GridLayout(2,2));
-		JPanel electionsel = new JPanel(new GridLayout(2,2));
-		JPanel candSel = new JPanel(new GridLayout(3,3));
-		electionLabel.add(selElc);
-		//electionsel.add(elecSel);
-		//candSel.add(cand1);
-		//candSel.add(cand2);
-		//candSel.add(cand3);
-		add(electionLabel, BorderLayout.WEST);
-		add(electionsel, BorderLayout.CENTER);
-		add(candSel, BorderLayout.EAST);
+		electionNameTextAreas.add(newElecName);
+		electionNameLabel.add(candName1);
+		electionNameTextAreas.add(cand1);
+		electionNameLabel.add(candName2);
+		electionNameTextAreas.add(cand2);
+		electionNameLabel.add(candName3);
+		electionNameTextAreas.add(cand3);
 		
-		
-		
-		
-		    JPanel buttonPanel = new JPanel();
-			buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-			buttonPanel.add(submit);
-			buttonPanel.add(back);
-			add(buttonPanel, BorderLayout.SOUTH);
-			
-			*/
-
-
+	    add(electionNameLabel, BorderLayout.WEST);
+	    add(electionNameTextAreas, BorderLayout.CENTER);
+	    JPanel buttonPanel = new JPanel();
+		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+		buttonPanel.add(submit);
+		buttonPanel.add(back);
+		add(buttonPanel, BorderLayout.SOUTH);
 		
 	}
 	
-	class ButtonandComboBoxListener implements ActionListener{
+	class ButtonListener implements ActionListener{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			
 			
-			String s = electionType.getSelectedItem().toString();
-			StringBuilder sb = new StringBuilder();
-			for(String a: dao.getCurrentElectionsFromTable(s)){
-				sb.append(a + "\n");
-			}
-		    cand1.setText(sb.toString());
-			System.out.println(sb.toString());
-			 cand2.setText(sb.toString());
-				System.out.println(sb.toString());
-			cand3.setText(sb.toString());
-			 System.out.println(sb.toString());
-			// TODO Auto-generated method stub
-			//String numVotes = submit.getText();
-			//int nV = Integer.parseInt(numVotes);
-			/*if(e.getSource() == submit && e.getSource()==cand1)
-				{
-				event.candidate1VotesCount(candidate1Count);
-				//System.out.print(event.candate1VotesCount(nV));
-				
-				
-			}*/
+		
 				if (e.getSource() == submit) {
 					System.out.println("Add new item to database");
 					
 					String tempElection;
-					
-					tempElection = electionType.getSelectedItem().toString();
+					//int tempElectionID =0;
+					tempElection = newElecName.getText();
 					String tempCand1 = cand1.getText();
 					String tempCand2 = cand2.getText();
 					String tempCand3 = cand3.getText();
@@ -172,10 +93,10 @@ public class AddElections extends JPanel {
 					int tempCand3Vote = 0;
 					
 					
-					Elections i= new Elections(tempElection, tempCand1, tempCand2, tempCand3, tempCand1Vote, tempCand2Vote, tempCand3Vote );
+					Elections i= new Elections( tempElection, tempCand1, tempCand2, tempCand3, tempCand1Vote, tempCand2Vote, tempCand3Vote );
 					ElectionsDAO dao = new ElectionsDAO();
 					dao.insertNewElection(i);
-					electionType.setEditable(false);
+					newElecName.setText("");
 					
 					cand1.setText("");
 					cand2.setText("");

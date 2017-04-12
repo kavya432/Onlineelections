@@ -9,7 +9,7 @@ public class ElectionTester {
 		JPanel panel=  new StartElections();
 		master.add(panel);
 		
-		master.setSize(400, 250);
+		master.setSize(500, 250);
 		master.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		master.setVisible(true);
 	}

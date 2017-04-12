@@ -7,8 +7,10 @@
 <title>Election Results</title>
 </head>
 <body>
+
 <% 
 String tempid1 = (String)request.getAttribute("electionId");
+System.out.println(tempid1);
 String tempcand1 = (String)request.getAttribute("c1N");
 String tempcand2 = (String)request.getAttribute("c2N");
 String tempcand3 = (String)request.getAttribute("c3N");

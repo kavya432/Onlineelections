@@ -28,8 +28,9 @@ for(int i = 0; i < allElections.size(); i++){
 }
 %>
 </table>
-<input type= "submit" name = "doThisToItem" value="select">
-<input type= "submit" name = "doThisToItem" value="add">
+<input type= "submit" name = "doThisToItem" value="Select">
+<input type= "submit" name = "doThisToItem" value="Add">
+<input type= "submit" name = "doThisToItem" value="Results">
 </form>
 </body>
 </html>
